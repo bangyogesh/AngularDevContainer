@@ -9,7 +9,7 @@ ARG USER_UID=1000
 ARG USER_GID=$USER_UID
 
 RUN apt-get update \
-    && apt-get -y install --no-install-recommends apt-utils dialog 2>&1 \
+    && apt-get -y install apt-utils dialog 2>&1 \
     #
     # Verify git and needed tools are installed
     && apt-get -y install git iproute2 procps \    
