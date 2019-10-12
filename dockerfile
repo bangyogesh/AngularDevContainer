@@ -1,4 +1,4 @@
-FROM node:lts
+FROM node:8
 
 #Use the root user as needed to install the packages
 USER root
@@ -8,14 +8,11 @@ ENV DEBIAN_FRONTEND=noninteractive
 ARG USER_UID=1000
 ARG USER_GID=$USER_UID
 
-RUN apt-get -y update  \
-    && apt-get -y upgrade  \
+RUN apt-get update \
     && apt-get -y install --no-install-recommends apt-utils dialog 2>&1 \
-    && apt-get -y install libgtk2.0-0 libgconf-2-4 libx11-xcb-dev libsecret-1-0 libxss1 libnss3 \ 
-                    libxkbfile1 libgl1-mesa-glx libgl1-mesa-dri libasound2 libnotify4 libx11-dev git -y \
     #
     # Verify git and needed tools are installed
-    && apt-get -y install git iproute2 procps \
+    && apt-get -y install git iproute2 procps \    
     #
     # Remove outdated yarn from /opt and install via package 
     # so it can be easily updated via apt-get upgrade yarn
@@ -38,7 +35,7 @@ RUN apt-get -y update  \
     && apt-get install -y sudo \
     && echo node ALL=\(root\) NOPASSWD:ALL > /etc/sudoers.d/node \
     && chmod 0440 /etc/sudoers.d/node \
-    #    
+    #
     # Clean up
     && apt-get autoremove -y \
     && apt-get clean -y \
@@ -54,3 +51,4 @@ USER gitpod
 
 # Return to the root user
 USER root
+ENV DEBIAN_FRONTEND=   
