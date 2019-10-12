@@ -35,8 +35,7 @@ RUN apt-get -y update  \
     && apt-get install -y sudo \
     && echo node ALL=\(root\) NOPASSWD:ALL > /etc/sudoers.d/node \
     && chmod 0440 /etc/sudoers.d/node \
-    #
-    
+    #    
     # Clean up
     && apt-get autoremove -y \
     && apt-get clean -y \
