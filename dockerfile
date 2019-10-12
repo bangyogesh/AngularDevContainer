@@ -44,10 +44,10 @@ RUN apt-get -y update  \
     
 # Any gitpod user specific settings shall go here
 USER gitpod
-RUN mkdir /home/gitpod/.npm-global \
-    && ENV PATH=/home/gitpod/.npm-global/bin:$PATH \
-    && ENV NPM_CONFIG_PREFIX=/home/gitpod/.npm-global \
-    && npm install -g @angular/cli \
+#RUN mkdir /home/gitpod/.npm-global \
+    #&& ENV PATH=/home/gitpod/.npm-global/bin:$PATH \
+    #&& ENV NPM_CONFIG_PREFIX=/home/gitpod/.npm-global \
+    #&& npm install -g @angular/cli \
 
 
 # Return to the root user
