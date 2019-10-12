@@ -3,6 +3,11 @@ FROM node:lts
 #Use the root user as needed to install the packages
 USER root
 
+# Avoid warnings by switching to noninteractive
+ENV DEBIAN_FRONTEND=noninteractive
+ARG USER_UID=1000
+ARG USER_GID=$USER_UID
+
 RUN apt-get -y update  \
     && apt-get -y install --no-install-recommends apt-utils dialog 2>&1 \ 
     #
