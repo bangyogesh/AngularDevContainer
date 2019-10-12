@@ -7,6 +7,7 @@ FROM node:8
 USER root
 # Avoid warnings by switching to noninteractive
 ENV DEBIAN_FRONTEND=noninteractive
+RUN sudo dpkg -r --force-all doc-base
 
 # The node image comes with a base non-root 'node' user which this Dockerfile
 # gives sudo access. However, for Linux, this user's GID/UID must match your local
