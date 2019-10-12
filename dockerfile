@@ -31,13 +31,19 @@ RUN apt-get update \
     #&& echo node ALL=\(root\) NOPASSWD:ALL > /etc/sudoers.d/node \
     #&& chmod 0440 /etc/sudoers.d/node \
     #
+    
     # Clean up
     && apt-get autoremove -y \
     && apt-get clean -y \
     && rm -rf /var/lib/apt/lists/*
     
 # Any gitpod user specific settings shall go here
-# USER gitpod
+USER gitpod
+RUN mkdir /home/gitpod/.npm-global \
+    && ENV PATH=/home/node/.npm-global/bin:$PATH \
+    && ENV NPM_CONFIG_PREFIX=/home/node/.npm-global \
+    && npm install -g @angular/cli \
+
 
 # Return to the root user
 USER root
