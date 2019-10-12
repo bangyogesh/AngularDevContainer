@@ -11,7 +11,7 @@ ARG USER_GID=$USER_UID
 RUN apt-get -y update  \
     && apt-get -y upgrade  \
     && apt-get -y install libgtk2.0-0 libgconf-2-4 libx11-xcb-dev libsecret-1-0 libxss1 libnss3 \ 
-                    libxkbfile1 libgl1-mesa-glx libgl1-mesa-dri libasound2 libnotify4 libx11-dev git -y  \
+                    libxkbfile1 libgl1-mesa-glx libgl1-mesa-dri libasound2 libnotify4 libx11-dev git -y \
     && apt-get -y install --no-install-recommends apt-utils dialog 2>&1 \ 
     #
     # Verify git and needed tools are installed
