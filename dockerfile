@@ -3,7 +3,7 @@ FROM node:lts
 #Use the root user as needed to install the packages
 USER root
 
-RUN apt-get update \
+RUN apt-get -y update  \
     && apt-get -y install --no-install-recommends apt-utils dialog 2>&1 \ 
     #
     # Verify git and needed tools are installed
