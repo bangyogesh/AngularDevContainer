@@ -17,9 +17,10 @@ ARG USER_UID=1000
 ARG USER_GID=$USER_UID
 
 # Configure apt and install packages
+RUN apt-get install -y apt-transport-https
 RUN apt-get update 
-
-RUN apt-get -y install --no-install-recommends apt-utils dialog 2>&1 
+RUN apt-get -y install --no-install-recommends apt-utils 
+RUN apt-get -y install --no-install-recommends dialog  
     #
     # Verify git and needed tools are installed
 RUN apt-get -y install git iproute2 procps     
