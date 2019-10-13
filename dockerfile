@@ -1,8 +1,3 @@
-#-------------------------------------------------------------------------------------------------------------
-# Copyright (c) Microsoft Corporation. All rights reserved.
-# Licensed under the MIT License. See https://go.microsoft.com/fwlink/?linkid=2090316 for license information.
-#-------------------------------------------------------------------------------------------------------------
-
 FROM node:8
 USER root
 # Avoid warnings by switching to noninteractive
@@ -12,22 +7,11 @@ RUN dpkg -r --force-all doc-base
 # The node image comes with a base non-root 'node' user which this Dockerfile
 # gives sudo access. However, for Linux, this user's GID/UID must match your local
 # user UID/GID to avoid permission issues with bind mounts. Update USER_UID / USER_GID 
-# if yours is not 1000. See https://aka.ms/vscode-remote/containers/non-root-user.
 ARG USER_UID=1000
 ARG USER_GID=$USER_UID
 
 # Configure apt and install packages
 RUN apt-get update 
-
-#The below steps are done as apt-utils list file is getting corrupt list
-#RUN apt-get -y download apt-utils
-
-#RUN dpkg -c /var/cache/apt/archives/apt-utils_1.4.9_amd64.deb  | awk '{if ($6 == "./") { print "/."; } \
-#else if (substr($6, length($6), 1) == "/") \
-#{print substr($6, 2, length($6) - 2); } \
-#else { print substr($6, 2, length($6) - 1);}}' > /var/lib/dpkg/info/apt-utils.list
-
-#
 RUN apt-get -y install --no-install-recommends apt-utils 
 RUN apt-get -y install --no-install-recommends dialog  
 RUN apt-get install -y apt-transport-https
@@ -49,8 +33,6 @@ RUN apt-get -y install --no-install-recommends yarn
     #
     # Install tslint and typescript globally
 RUN npm install -g tslint typescript 
-    #
-    # [Optional] Update a non-root user to match UID/GID - see https://aka.ms/vscode-remote/containers/non-root-user.
     #&& if [ "$USER_GID" != "1000" ]; then groupmod node --gid $USER_GID; fi \
     #&& if [ "$USER_UID" != "1000" ]; then usermod --uid $USER_UID node; fi \
     # [Optional] Add add sudo support for non-root user
