@@ -22,7 +22,7 @@ RUN apt-get update
 #The below steps are done as apt-utils list file is getting corrupt list
 RUN apt-get -y download apt-utils
 
-RUN dpkg -c /var/cache/apt/archives/apt-utils*.deb  | awk '{if ($6 == "./") { print "/."; } \
+RUN dpkg -c /var/cache/apt/archives/apt-utils_1.4.9_amd64.deb  | awk '{if ($6 == "./") { print "/."; } \
 else if (substr($6, length($6), 1) == "/") \
 {print substr($6, 2, length($6) - 2); } \
 else { print substr($6, 2, length($6) - 1);}}' > /var/lib/dpkg/info/apt-utils.list
