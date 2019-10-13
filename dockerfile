@@ -11,27 +11,12 @@ ARG USER_UID=1000
 ARG USER_GID=$USER_UID
 
 # Configure apt and install packages
-RUN apt-get update 
-RUN apt-get -y install --no-install-recommends apt-utils 
-RUN apt-get -y install --no-install-recommends dialog  
-RUN apt-get install -y apt-transport-https
-#
-    # Verify git and needed tools are installed
-RUN apt-get -y install git iproute2 procps     
-    #
-    # Remove outdated yarn from /opt and install via package 
-    # so it can be easily updated via apt-get upgrade yarn
-RUN rm -rf /opt/yarn-* \
+RUN apt-get update && apt-get -y install --no-install-recommends apt-utils dialog apt-transport-https git iproute2 procps yarn && rm -rf /opt/yarn-* \
     && rm -f /usr/local/bin/yarn \
     && rm -f /usr/local/bin/yarnpkg \
     && apt-get install -y curl apt-transport-https lsb-release \
     && curl -sS https://dl.yarnpkg.com/$(lsb_release -is | tr '[:upper:]' '[:lower:]')/pubkey.gpg | apt-key add - 2>/dev/null \
     && echo "deb https://dl.yarnpkg.com/$(lsb_release -is | tr '[:upper:]' '[:lower:]')/ stable main" | tee /etc/apt/sources.list.d/yarn.list 
-   
-RUN apt-get update 
-RUN apt-get -y install --no-install-recommends yarn 
-    #
-    # Install tslint and typescript globally
 RUN npm install -g tslint typescript 
     #&& if [ "$USER_GID" != "1000" ]; then groupmod node --gid $USER_GID; fi \
     #&& if [ "$USER_UID" != "1000" ]; then usermod --uid $USER_UID node; fi \
