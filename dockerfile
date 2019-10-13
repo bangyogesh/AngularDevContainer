@@ -28,7 +28,7 @@ RUN apt-get update
 #else { print substr($6, 2, length($6) - 1);}}' > /var/lib/dpkg/info/apt-utils.list
 
 #
-#RUN apt-get -y install --no-install-recommends apt-utils 
+RUN apt-get -y install --no-install-recommends apt-utils 
 RUN apt-get -y install --no-install-recommends dialog  
 RUN apt-get install -y apt-transport-https
 #
