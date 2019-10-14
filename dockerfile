@@ -18,6 +18,7 @@ RUN apt-get update && apt-get -y install --no-install-recommends apt-utils dialo
     && curl -sS https://dl.yarnpkg.com/$(lsb_release -is | tr '[:upper:]' '[:lower:]')/pubkey.gpg | apt-key add - 2>/dev/null \
     && echo "deb https://dl.yarnpkg.com/$(lsb_release -is | tr '[:upper:]' '[:lower:]')/ stable main" | tee /etc/apt/sources.list.d/yarn.list 
 RUN npm install -g tslint typescript 
+RUN npm install -g @angular/cli
     #&& if [ "$USER_GID" != "1000" ]; then groupmod node --gid $USER_GID; fi \
     #&& if [ "$USER_UID" != "1000" ]; then usermod --uid $USER_UID node; fi \
     # [Optional] Add add sudo support for non-root user
