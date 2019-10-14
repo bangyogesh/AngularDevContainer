@@ -1,7 +1,7 @@
 image:
   file: dockerfile  
 tasks:
-  - init: npm install -g @angular/cli && mkdir hello-world && cd hello-world && ng new hello-world && ng serve -o  
+  - init: echo 'welcome to angular dev container'
 ports:
   - port: 8000
     onOpen: open-preview    
