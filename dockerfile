@@ -14,12 +14,12 @@ RUN apt -y update &&  apt -y upgrade
 #ARG USER_GID=$USER_UID
 
 # Configure apt and install packages
-RUN apt-get update && apt-get -y install --no-install-recommends apt-utils dialog apt-transport-https git iproute2 procps yarn 
-RUN rm -rf /opt/yarn-* \
+RUN apt-get update && apt-get -y install --no-install-recommends apt-utils dialog apt-transport-https git iproute2 procps yarn \
+    && rm -rf /opt/yarn-* \
     && rm -f /usr/local/bin/yarn \
     && rm -f /usr/local/bin/yarnpkg \
-    && apt-get install -y curl apt-transport-https lsb-release \
-    && curl -sS https://dl.yarnpkg.com/$(lsb_release -is | tr '[:upper:]' '[:lower:]')/pubkey.gpg | apt-key add - 2>/dev/null \
+    && apt-get install -y curl apt-transport-https lsb-release 
+RUN curl -sS https://dl.yarnpkg.com/$(lsb_release -is | tr '[:upper:]' '[:lower:]')/pubkey.gpg | apt-key add - 2>/dev/null \
     && echo "deb https://dl.yarnpkg.com/$(lsb_release -is | tr '[:upper:]' '[:lower:]')/ stable main" | tee /etc/apt/sources.list.d/yarn.list 
 RUN npm install -g tslint typescript 
     #&& if [ "$USER_GID" != "1000" ]; then groupmod node --gid $USER_GID; fi \
