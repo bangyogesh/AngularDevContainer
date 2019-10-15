@@ -14,7 +14,9 @@ RUN apt -y update &&  apt -y upgrade
 #ARG USER_GID=$USER_UID
 
 RUN rm -rf /var/lib/dpkg/info/libx11-dev.list
+RUN rm -rf /var/lib/dpkg/info/linux-libc-dev.list
 RUN apt -y install libx11-dev --reinstall
+RUN apt -y install linux-libc-dev --reinstall
 
 # Configure apt and install packages
 RUN apt-get update && apt-get -y install --no-install-recommends apt-utils dialog apt-transport-https git iproute2 procps yarn \
