@@ -11,7 +11,8 @@ RUN dpkg -r --force-all doc-base
 #ARG USER_GID=$USER_UID
 
 # Configure apt and install packages
-RUN apt-get update && apt-get -y install --no-install-recommends apt-utils dialog apt-transport-https git iproute2 procps yarn && rm -rf /opt/yarn-* \
+RUN apt-get update && apt-get -y install --no-install-recommends apt-utils dialog apt-transport-https git iproute2 procps yarn 
+RUN rm -rf /opt/yarn-* \
     && rm -f /usr/local/bin/yarn \
     && rm -f /usr/local/bin/yarnpkg \
     && apt-get install -y curl apt-transport-https lsb-release \
