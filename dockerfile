@@ -1,4 +1,4 @@
-FROM node:8
+FROM node:latest
 USER root
 # Avoid warnings by switching to noninteractive
 ENV DEBIAN_FRONTEND=noninteractive
