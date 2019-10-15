@@ -3,6 +3,9 @@ USER root
 # Avoid warnings by switching to noninteractive
 ENV DEBIAN_FRONTEND=noninteractive
 RUN dpkg -r --force-all doc-base
+RUN mv /var/lib/dpkg/info/linux* ./
+RUN dpkg --configure -a
+RUN apt update &&  apt upgrade
 
 # The node image comes with a base non-root 'node' user which this Dockerfile
 # gives sudo access. However, for Linux, this user's GID/UID must match your local
