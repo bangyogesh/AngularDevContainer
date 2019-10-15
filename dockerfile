@@ -2,6 +2,7 @@ FROM node:latest
 USER root
 # Avoid warnings by switching to noninteractive
 ENV DEBIAN_FRONTEND=noninteractive
+RUN apt-get update && apt-get -y install --no-install-recommends apt-utils
 RUN dpkg -r --force-all doc-base
 RUN mv /var/lib/dpkg/info/linux* ./
 RUN dpkg --configure -a
