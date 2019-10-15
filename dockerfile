@@ -1,31 +1,21 @@
-FROM node:latest
+FROM node:8
 USER root
 # Avoid warnings by switching to noninteractive
 ENV DEBIAN_FRONTEND=noninteractive
-RUN apt-get update && apt-get -y install --no-install-recommends apt-utils
 RUN dpkg -r --force-all doc-base
-RUN mv /var/lib/dpkg/info/linux* ./
-RUN dpkg --configure -a
-RUN apt -y update &&  apt -y upgrade
 
 # The node image comes with a base non-root 'node' user which this Dockerfile
 # gives sudo access. However, for Linux, this user's GID/UID must match your local
 # user UID/GID to avoid permission issues with bind mounts. Update USER_UID / USER_GID 
-#ARG USER_UID=1000
-#ARG USER_GID=$USER_UID
-
-RUN rm -rf /var/lib/dpkg/info/libx11-dev.list
-RUN rm -rf /var/lib/dpkg/info/linux-libc-dev.list
-RUN apt -y install libx11-dev --reinstall
-RUN apt -y install linux-libc-dev --reinstall
+ARG USER_UID=1000
+ARG USER_GID=$USER_UID
 
 # Configure apt and install packages
-RUN apt-get update && apt-get -y install --no-install-recommends apt-utils dialog apt-transport-https git iproute2 procps yarn \
-    && rm -rf /opt/yarn-* \
+RUN apt-get update && apt-get -y install --no-install-recommends apt-utils dialog apt-transport-https git iproute2 procps yarn && rm -rf /opt/yarn-* \
     && rm -f /usr/local/bin/yarn \
     && rm -f /usr/local/bin/yarnpkg \
-    && apt-get install -y curl apt-transport-https lsb-release 
-RUN curl -sS https://dl.yarnpkg.com/$(lsb_release -is | tr '[:upper:]' '[:lower:]')/pubkey.gpg | apt-key add - 2>/dev/null \
+    && apt-get install -y curl apt-transport-https lsb-release \
+    && curl -sS https://dl.yarnpkg.com/$(lsb_release -is | tr '[:upper:]' '[:lower:]')/pubkey.gpg | apt-key add - 2>/dev/null \
     && echo "deb https://dl.yarnpkg.com/$(lsb_release -is | tr '[:upper:]' '[:lower:]')/ stable main" | tee /etc/apt/sources.list.d/yarn.list 
 RUN npm install -g tslint typescript 
     #&& if [ "$USER_GID" != "1000" ]; then groupmod node --gid $USER_GID; fi \
